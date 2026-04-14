@@ -126,6 +126,8 @@ def compute_volume_physics(
         positions_cm=positions_cm,
         positions_yz_cm=yz,
         t0_us=deposits.t0_us,
+        interaction_ids=deposits.interaction_ids,
+        ancestor_track_ids=deposits.ancestor_track_ids,
     )
 
 
@@ -192,6 +194,8 @@ def compute_plane_physics(vol_int, sim_params, vol_geom, plane_idx,
         charges=charges,
         photons=vol_int.photons,
         positions_cm=vol_int.positions_cm,
+        interaction_ids=vol_int.interaction_ids,
+        ancestor_track_ids=vol_int.ancestor_track_ids,
     )
 
 

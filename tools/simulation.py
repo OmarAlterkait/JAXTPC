@@ -579,7 +579,7 @@ class DetectorSimulator:
                 sce_fn = sce_factories[vol_idx]()
                 vol_int = compute_volume_physics(
                     vol_deps, sim_params, cfg.volumes[vol_idx], sce_fn, _recomb_fn)
-                results.append((vol_int.charges, vol_int.photons, vol_int.positions_cm))
+                results.append((vol_int.charges, vol_int.photons, vol_int.positions_cm, vol_int.interaction_ids, vol_int.ancestor_track_ids))
             return results
 
         self._light_calculator_jit = _calculate_light_jit
@@ -681,7 +681,7 @@ class DetectorSimulator:
 
         results = self._light_calculator_jit(sim_params, deposits.volumes)
         filled_volumes = tuple(
-            vol._replace(charge=results[v][0], photons=results[v][1])
+            vol._replace(charge=results[v][0], photons=results[v][1], interaction_ids=results[v][3], ancestor_track_ids=results[v][4])
             for v, vol in enumerate(deposits.volumes)
         )
         return deposits._replace(volumes=filled_volumes)
